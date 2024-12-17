@@ -4,7 +4,7 @@ import React from 'react'
 function index() {
   return (
     <div className='flex flex-col gap-7 relative items-center justify-center pt-16'>
-        <Image className='absolute left-0 top-0' alt='floral-design' src="floral-design.svg" width={150} height={150}  />
+        <Image className='absolute left-0 top-1' alt='floral-design' src="floral-design.svg" width={150} height={150}  />
         <h1 className='font-bold text-3xl w-56 text-text text-center border-text border-r-2  border-l-2'
         dir='rtl'>
             مراقبت از پوست با تیلدا
