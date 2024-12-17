@@ -21,6 +21,30 @@ body {
   height: 445px;
 }
 
+/* در فایل globals.css اضافه کنید */
+.page-enter {
+  transform: translateY(100%);
+  opacity: 0;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+.page-enter-active {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.page-exit {
+  transform: translateY(0);
+  opacity: 1;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+.page-exit-active {
+  transform: translateY(100%);
+  opacity: 0;
+}
+
+
 @keyframes slideUp {
   0% {
     transform: translateY(100%);

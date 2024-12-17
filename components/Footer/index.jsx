@@ -3,7 +3,7 @@ import React from "react";
 
 function index() {
   return (
-    <div className="flex flex-col items-center justify-center relative h-120 pt-24 overflow-hidden">
+    <div className="flex flex-col items-center w-full justify-center relative h-120 pt-24 overflow-hidden">
       <Image
         src={"Ellipse-footer.svg"}
         width={1500}
