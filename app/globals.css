@@ -1,21 +1,19 @@
+@import url("https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&display=swap");
+
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.nav-show {
+  box-shadow: 1px 3px 4px 0px rgba(0,0,0,0.75);
+-webkit-box-shadow: 1px 3px 4px 0px rgba(0,0,0,0.75);
+-moz-box-shadow: 1px 3px 4px 0px rgba(0,0,0,0.75);
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Vazirmatn", sans-serif;
+}
+.rounded-xl {
+  border-radius: 10px;
 }
