@@ -3,6 +3,7 @@ import React, { useState } from "react";
 function Modal({ onClose }) {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
+  const [feedback, setFeedback] = useState(null); // حالت جدید برای بازخورد
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -17,15 +18,46 @@ function Modal({ onClose }) {
       });
 
       if (response.ok) {
-        alert("اطلاعات با موفقیت ارسال شد!");
-        onClose();
+        setFeedback("success");
       } else {
-        alert("ارسال اطلاعات با مشکل مواجه شد.");
+        setFeedback("error");
       }
     } catch (error) {
       console.error("Error sending message:", error);
-      alert("خطایی رخ داده است.");
+      setFeedback("error");
     }
+  };
+
+  const renderFeedback = () => {
+    if (feedback === "success") {
+      return (
+        <div className="text-center text-green-600">
+          <p>اطلاعات با موفقیت ارسال شد!</p>
+          <button
+            onClick={onClose}
+            className="mt-4 bg-first text-main_text py-2 px-4 rounded"
+          >
+            بستن
+          </button>
+        </div>
+      );
+    }
+
+    if (feedback === "error") {
+      return (
+        <div className="text-center text-red-600">
+          <p>ارسال اطلاعات با مشکل مواجه شد. لطفاً دوباره تلاش کنید.</p>
+          <button
+            onClick={() => setFeedback(null)}
+            className="mt-4 bg-first text-main_text py-2 px-4 rounded"
+          >
+            بازگشت
+          </button>
+        </div>
+      );
+    }
+
+    return null;
   };
 
   return (
@@ -45,30 +77,36 @@ function Modal({ onClose }) {
           ✕
         </button>
         <h2 className="text-xl font-bold mb-4">مشاوره رایگان</h2>
-        <p className="text-gray-700 mb-4">لطفا اطلاعات خود را وارد کنید:</p>
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            placeholder="نام و نام خانوادگی"
-            className="w-full p-2 mb-4 border rounded"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-          <input
-            dir="rtl"
-            type="tel"
-            placeholder="شماره تماس"
-            className="w-full p-2 mb-4 border rounded"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-          />
-          <button
-            type="submit"
-            className="w-full bg-first text-main_text py-2 rounded"
-          >
-            ارسال
-          </button>
-        </form>
+        {feedback ? (
+          renderFeedback() // نمایش بازخورد
+        ) : (
+          <>
+            <p className="text-gray-700 mb-4">لطفا اطلاعات خود را وارد کنید:</p>
+            <form onSubmit={handleSubmit}>
+              <input
+                type="text"
+                placeholder="نام و نام خانوادگی"
+                className="w-full p-2 mb-4 border rounded"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+              <input
+                dir="rtl"
+                type="tel"
+                placeholder="شماره تماس"
+                className="w-full p-2 mb-4 border rounded"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+              />
+              <button
+                type="submit"
+                className="w-full bg-first text-main_text py-2 rounded"
+              >
+                ارسال
+              </button>
+            </form>
+          </>
+        )}
       </div>
     </div>
   );
