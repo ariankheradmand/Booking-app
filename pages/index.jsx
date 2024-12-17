@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar/index.jsx";
 import Hero from "../components/Hero/index.jsx";
 import Services from "../components/Services/index.jsx";
 import Experiences from "../components/Experience/index.jsx";
+import Fotter from "../components/Fotter/index.jsx";
 
 function index() {
   return (
@@ -12,6 +13,7 @@ function index() {
       <Hero/>
       <Services/>
       <Experiences/>
+      <Fotter/>
     </div>
   );
 }
