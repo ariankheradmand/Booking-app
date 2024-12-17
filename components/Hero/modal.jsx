@@ -98,6 +98,9 @@ function Modal({ onClose }) {
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
               />
+              <div className="text-sm  border-b border-dashed border-black w-max">لطفا از کلمات فارسی برای نام و نام  خانودگی استفاده کنید</div>
+              <div className="text-sm mt-4 mb-4 border-b border-dashed border-black w-max">لطفا از شمارگان لاتین استفاده کنید</div>
+             
               <button
                 type="submit"
                 className="w-full bg-first text-main_text py-2 rounded"

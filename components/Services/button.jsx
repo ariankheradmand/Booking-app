@@ -16,7 +16,9 @@ function button() {
         <Link
           href={`${buttonText.route}`}
           key={index}
-          className="flex items-center justify-center text-center bg-first text-sm text-white w-20 h-20  rounded-xl"
+          className="flex items-center justify-center text-center bg-first text-sm text-white w-20 h-20  rounded-xl
+          hover:bg-first/80 transition-all hover:border hover:border-white
+           focus:bg-black"
         >
           <span>{buttonText.value}</span>
         </Link>

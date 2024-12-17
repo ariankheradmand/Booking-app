@@ -4,6 +4,7 @@ import Main from "../index.jsx"
 import "../../app/globals.css";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import ArticleBox from "./ArticleBox.jsx";
 
 function Index() {
   const [show, setShow] = useState(false);
@@ -41,9 +42,9 @@ function Index() {
         <div className="flex items-center gap-2 justify-center pt-4">
           <Image src="magazine.svg" width={48} height={48} />
           <h1 className="text-2xl font-bold">مقالات</h1>
-          
         </div>
-
+        
+        <ArticleBox />
 
         <button
           onClick={handleBack}
@@ -51,6 +52,7 @@ function Index() {
         >
           برگشت
         </button>
+        <div className="h-40"></div>
 
         <Footer />
       </div>
