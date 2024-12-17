@@ -17,6 +17,9 @@ body {
 .rounded-xl {
   border-radius: 10px;
 }
+.h-120 {
+  height: 445px;
+}
 
 @keyframes slideUp {
   0% {

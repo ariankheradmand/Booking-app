@@ -1,56 +1,66 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from "react";
 
 function Modal({ onClose }) {
-  const [isVisible, setIsVisible] = useState(false);
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
 
-  useEffect(() => {
-    setIsVisible(true);
-  }, []);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      // اطلاعات را به ربات تلگرام ارسال کنید
+      const response = await fetch("/api/send-message", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name, phone }),
+      });
 
-  const handleClose = () => {
-    setIsVisible(false);
-    setTimeout(() => {
-      onClose(); 
-    }, 0); 
-  };
-
-  const handleOutsideClick = (e) => {
-    if (e.target.id === 'modal-background') {
-      handleClose();
+      if (response.ok) {
+        alert("اطلاعات با موفقیت ارسال شد!");
+        onClose();
+      } else {
+        alert("ارسال اطلاعات با مشکل مواجه شد.");
+      }
+    } catch (error) {
+      console.error("Error sending message:", error);
+      alert("خطایی رخ داده است.");
     }
   };
 
   return (
     <div
-      id="modal-background"
+      dir="rtl"
       className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
-      onClick={handleOutsideClick}
+      onClick={(e) => e.target.id === "modal-background" && onClose()}
     >
       <div
-        className={`bg-white rounded-lg p-6 w-96 relative transform transition-transform duration-300 ${
-          isVisible
-            ? 'translate-y-0 opacity-100' 
-            : 'translate-y-full opacity-0' 
-        }`}
+        id="modal-background"
+        className="bg-white rounded-lg p-6 w-96 relative"
       >
         <button
           className="absolute top-2 right-2 text-gray-600"
-          onClick={handleClose}
+          onClick={onClose}
         >
           ✕
         </button>
         <h2 className="text-xl font-bold mb-4">مشاوره رایگان</h2>
-        <p className="text-gray-700">لطفا اطلاعات خود را وارد کنید تا با شما تماس بگیریم.</p>
-        <form className="mt-4">
+        <p className="text-gray-700 mb-4">لطفا اطلاعات خود را وارد کنید:</p>
+        <form onSubmit={handleSubmit}>
           <input
             type="text"
             placeholder="نام و نام خانوادگی"
             className="w-full p-2 mb-4 border rounded"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
           />
           <input
+            dir="rtl"
             type="tel"
             placeholder="شماره تماس"
             className="w-full p-2 mb-4 border rounded"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
           />
           <button
             type="submit"
