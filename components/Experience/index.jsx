@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const data = [
   {
@@ -57,6 +57,14 @@ const data = [
 function Index() {
   const [index, setIndex] = useState(0);
 
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIndex((prevIndex) => (prevIndex + 1) % data.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
   const next = () => {
     setIndex((prevIndex) => (prevIndex + 1) % data.length);
   };
@@ -68,7 +76,7 @@ function Index() {
   };
 
   return (
-    <div className="flex  items-center justify-center">
+    <div className="flex items-center justify-center">
       <button
         onClick={next}
         className="w-14 mr-2 px-4 py-2 bg-first text-white rounded"
@@ -80,8 +88,17 @@ function Index() {
           تجربیات شما عزیزان
         </h2>
 
-        <div className="relative mb-4 w-56 h-56 py-3 px-3 rounded-xl bg-third">
-          <Image src="Profile-logo.svg" className="absolute left-0" width={40} height={33} />
+        {/* Add smooth transition classes */}
+        <div
+          className="relative mb-4 w-56 h-56 py-3 px-3 rounded-xl bg-third transition-all duration-700 ease-in-out"
+          key={index} // Force re-render to trigger transition on index change
+        >
+          <Image
+            src="Profile-logo.svg"
+            className="absolute left-0"
+            width={40}
+            height={33}
+          />
           <h3 className="text-lg text-end font-semibold">{data[index].name}</h3>
           <p className="text-md text-center pt-6 text-gray-600">
             {data[index].detailed}
@@ -90,7 +107,7 @@ function Index() {
       </div>
       <button
         onClick={prev}
-        className=" w-14 ml-2 px-4 py-2 bg-first text-white rounded"
+        className="w-14 ml-2 px-4 py-2 bg-first text-white rounded"
       >
         <Image src="Arrow-r.svg" width={33} height={33} />
       </button>
