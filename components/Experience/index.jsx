@@ -76,10 +76,10 @@ function Index() {
   };
 
   return (
-    <div className="flex items-center justify-center">
+    <div  className="flex items-center justify-center">
       <button
         onClick={next}
-        className="w-14 mr-2 px-4 py-2 bg-first text-white rounded"
+        className="w-14 mr-2 h-14 flex items-center justify-center bg-first text-white rounded-full scale-75"
       >
         <Image src="Arrow-l.svg" width={33} height={33} />
       </button>
@@ -100,14 +100,14 @@ function Index() {
             height={33}
           />
           <h3 className="text-lg text-end font-semibold">{data[index].name}</h3>
-          <p className="text-md text-center pt-6 text-gray-600">
+          <p dir="rtl" className="text-md text-center pt-6 text-gray-600">
             {data[index].detailed}
           </p>
         </div>
       </div>
       <button
         onClick={prev}
-        className="w-14 ml-2 px-4 py-2 bg-first text-white rounded"
+        className="w-14 ml-2 h-14 flex items-center justify-center bg-first text-white rounded-full scale-75"
       >
         <Image src="Arrow-r.svg" width={33} height={33} />
       </button>

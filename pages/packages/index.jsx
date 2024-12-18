@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "../../app/globals.css";
-import Image from "next/image";
 import { useRouter } from "next/router";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
