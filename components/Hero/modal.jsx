@@ -3,18 +3,27 @@ import React, { useState } from "react";
 function Modal({ onClose }) {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
-  const [feedback, setFeedback] = useState(null); // حالت جدید برای بازخورد
+  const [selectedOption, setSelectedOption] = useState("");
+  const [feedback, setFeedback] = useState(null);
+  const [isLoading, setIsLoading] = useState(false); // New state for loading
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!selectedOption) {
+      alert("لطفاً یک گزینه انتخاب کنید.");
+      return;
+    }
+
+    setIsLoading(true); // Start loading state
+
     try {
-      // اطلاعات را به ربات تلگرام ارسال کنید
       const response = await fetch("/api/send-message", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ name, phone }),
+        body: JSON.stringify({ name, phone, selectedOption }),
       });
 
       if (response.ok) {
@@ -25,14 +34,19 @@ function Modal({ onClose }) {
     } catch (error) {
       console.error("Error sending message:", error);
       setFeedback("error");
+    } finally {
+      setIsLoading(false); // End loading state
     }
   };
 
   const renderFeedback = () => {
     if (feedback === "success") {
       return (
-        <div className="text-center text-green-600">
-          <p>اطلاعات با موفقیت ارسال شد!</p>
+        <div className="text-center text-green-700 w-">
+          <div className="bg-green-300 border-green-800 border border-dashed px-4">
+          <p className="text-sm mt-4 mb-4 border-b border-dashed border-green-800 w-max">اطلاعات با موفقیت ارسال شد!</p>
+          <p className="text-sm mt-4 mb-4 border-b border-dashed border-green-800 w-max">به زودی با شما تماس گرفته خواهد شد.</p>
+          </div>
           <button
             onClick={onClose}
             className="mt-4 bg-first text-main_text py-2 px-4 rounded"
@@ -45,10 +59,16 @@ function Modal({ onClose }) {
 
     if (feedback === "error") {
       return (
-        <div className="text-center text-red-600">
-          <p>ارسال اطلاعات با مشکل مواجه شد. لطفاً دوباره تلاش کنید.</p>
+        <div className=" text-red-600">
+          <div className="bg-red-300 border-red-800 border border-dashed px-4">
+          <p className="text-sm mt-4 mb-4 border-b border-dashed border-red-800 w-max">مشکلی پیش آمده لطفا بعدا دوباره تلاش کنید.</p>
+          <p className="text-sm mt-4 mb-4 border-b border-dashed border-red-800 w-max"> لطفا از استفاده شمارگان فارسی پرهیز نمایید.</p>
+          </div>
           <button
-            onClick={() => setFeedback(null)}
+            onClick={() => {
+              setFeedback(null);
+              setIsLoading(false); // Reset loading state if error
+            }}
             className="mt-4 bg-first text-main_text py-2 px-4 rounded"
           >
             بازگشت
@@ -78,7 +98,7 @@ function Modal({ onClose }) {
         </button>
         <h2 className="text-xl font-bold mb-4">مشاوره رایگان</h2>
         {feedback ? (
-          renderFeedback() // نمایش بازخورد
+          renderFeedback()
         ) : (
           <>
             <p className="text-gray-700 mb-4">لطفا اطلاعات خود را وارد کنید:</p>
@@ -98,14 +118,29 @@ function Modal({ onClose }) {
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
               />
-              <div className="text-sm  border-b border-dashed border-black w-max">لطفا از کلمات فارسی برای نام و نام  خانودگی استفاده کنید</div>
+              <div> لطفا فیلد مورد نظر برای مشاوره را انتخاب نمایید </div>
+              <select
+                value={selectedOption}
+                onChange={(e) => setSelectedOption(e.target.value)}
+                className="w-full p-2 pr-4 mb-4 border rounded"
+              >
+                <option value="">لطفاً انتخاب کنید</option>
+                <option value="فشیال بارداری">فشیال بارداری</option>
+                <option value="فشیال کلاسیک">فشیال کلاسیک</option>
+                <option value="لاین مراقبت از بدن">لاین مراقبت از بدن</option>
+                <option value="کربوکسی تراپی">کربوکسی تراپی</option>
+                <option value="فشیال VIP">فشیال VIP</option>
+              </select>
+              <div className="text-sm mb-4 border-b border-dashed border-black w-max">لطفا از کلمات فارسی برای نام و نام خانودگی استفاده کنید</div>
               <div className="text-sm mt-4 mb-4 border-b border-dashed border-black w-max">لطفا از شمارگان لاتین استفاده کنید</div>
-             
+              
+
               <button
                 type="submit"
                 className="w-full bg-first text-main_text py-2 rounded"
+                disabled={isLoading} // Disable button when loading
               >
-                ارسال
+                {isLoading ? 'در حال ارسال...' : 'ارسال'}
               </button>
             </form>
           </>
