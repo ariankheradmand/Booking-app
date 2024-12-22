@@ -34,9 +34,15 @@ function Sections() {
                                 transform: 'translateY(0)'
                             }}
                         >
-                            <div className="p-4">
+                            <div className="p-4 flex flex-col items-center w-72 justify-center gap-2">
                                 {/* Example content for the day */}
-                                جزئیات {day}
+                                <div className='flex flex-row-reverse items-center justify-center min-h-14 w-11/12 rounded-xl overflow-hidden'>
+                                <button className=' absolute right-0 text-xs'>حذف</button>
+                                <div className='w-11/12 h-14 text-center flex items-center justify-center border-l border text-sm bg-[#FFC890]'><span>سارا رحمانی</span></div>
+                                <div className='w-11/12 h-14 text-center flex items-center justify-center border-x border text-sm bg-[#FFC890]'><span>11:00</span></div>
+                                <div className='w-11/12 h-14 text-center flex items-center justify-center border-r border text-sm bg-[#FFC890]'><span>فیشال صورت </span></div>
+                                </div>
+                                <button>اضافه کردن نوبت</button>
                             </div>
                         </div>
                     )}

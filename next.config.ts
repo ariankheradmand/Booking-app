@@ -1,7 +1,17 @@
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
-  /* config options here */
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  webpack: (config, { isServer }) => {
+    if (isServer) {
+      config.plugins.push({
+        apply: (compiler) => {
+          compiler.hooks.beforeRun.tap('DefineSelf', () => {
+            global.self = global;
+          });
+        },
+      });
+    }
+    return config;
+  },
 };
 
-export default nextConfig;
+module.exports = nextConfig;
