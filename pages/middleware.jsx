@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import './globalSetup';
 
 export function middleware(req) {
   const adminAuth = req.cookies.get("admin_auth");
