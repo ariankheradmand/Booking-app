@@ -25,10 +25,10 @@ function Index() {
   };
 
   return (
-    <div className="bg-second">
+    <div className="bg-second ">
       <Navbar />
-      <div className={`flex flex-col items-center justify-center mt-4 transition-all duration-500 ${show && !exit ? "page-enter-active" : "page-enter"}`}>
-        <h2 className='px-4 py-1 border border-black rounded-xl font-extrabold text-2xl'>پکیج ها</h2>
+      <div className={`flex flex-col items-center justify-center mt-4 transition-all dura tion-500 ${show && !exit ? "page-enter-active" : "page-enter"}`}>
+        <h2 className='px-4 py-1 border border-black rounded-xl font-extrabold text-2xl '>پکیج ها</h2>
         <PackagesBox />
         <button
           onClick={handleBack}

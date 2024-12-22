@@ -10,14 +10,8 @@ function Index() {
   };
 
   return (
-    <div className="flex flex-col gap-7 relative items-center justify-center pt-16">
-      <Image
-        className="absolute left-0 top-1"
-        alt="floral-design"
-        src="floral-design.svg"
-        width={150}
-        height={150}
-      />
+    <div className="flex flex-col gap-7 relative items-center justify-center pt-12">
+      
       <h1
         className="font-bold text-3xl w-56 text-text text-center border-text border-r-2 border-l-2"
         dir="rtl"
