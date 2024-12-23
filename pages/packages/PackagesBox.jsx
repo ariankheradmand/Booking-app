@@ -1,5 +1,6 @@
 import React from "react";
 import Data from "../../libs/PackagesData";
+import Link from "next/link";
 
 function PackagesBox() {
   return (
@@ -7,7 +8,7 @@ function PackagesBox() {
       <div className="flex flex-row flex-wrap items-center justify-center gap-3 mt-4">
         {Data.map((pakages, index) => {
           return (
-            <div className="flex flex-col  w-44 bg-first h-60 z-50 rounded-lg relative nav-show">
+            <Link href={"/booking"} className="flex flex-col  w-44 bg-first h-60 z-50 rounded-lg relative nav-show">
               <h3 className="text-end font-bold py-1 px-2  text-white ">
                 {pakages.name}
               </h3>
@@ -22,7 +23,7 @@ function PackagesBox() {
                   رزرو وقت
                 </button>
               </div>
-            </div>
+            </Link>
           );
         })}
       </div>

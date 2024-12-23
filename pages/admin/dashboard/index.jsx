@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import Sections from "./sections";
+import Adding from "./adding";
 import Image from "next/image";
 import "../../../app/globals.css";
 export async function getServerSideProps(context) {
@@ -40,6 +41,7 @@ export default function Dashboard() {
         width={120}
         height={116}
       />
+      <Adding />
       <Sections />
       <button
         onClick={handleLogout}
