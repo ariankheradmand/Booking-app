@@ -1,7 +1,7 @@
 {
     "crons": [
       {
-        "path": "/api/cron/delete-appointments",
+        "path": "/api/crons/delete-appointments",
         "schedule": "30 7 * * *"
       }
     ]

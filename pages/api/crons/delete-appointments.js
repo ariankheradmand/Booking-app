@@ -1,30 +1,45 @@
-// pages/api/cron/delete-appointments.ts
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-const persianDays = ['یکشنبه', 'دوشنبه', 'سه‌شنبه', 'چهارشنبه', 'پنجشنبه', 'جمعه', 'شنبه'];
+// Helper function to convert English day names to Persian
+const persianDayOfWeek = (day) => {
+  const days = {
+    'Sunday': 'یکشنبه',
+    'Monday': 'دوشنبه',
+    'Tuesday': 'سه‌شنبه',
+    'Wednesday': 'چهارشنبه',
+    'Thursday': 'پنج‌شنبه',
+    'Friday': 'جمعه',
+    'Saturday': 'شنبه'
+  };
+  return days[day] || 'نامشخص';
+};
 
 export default async function handler(req, res) {
-  try {
-    // Determine current Persian day of the week
-    const date = new Date();
-    const currentDayIndex = date.getDay(); // 0 for Sunday in JS, but we use Persian naming
-    const currentPersianDay = persianDays[currentDayIndex];
+  if (req.method === 'POST') {
+    try {
+      // Tehran time is UTC+3:30
+      const tehranTime = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Tehran' }));
+      const currentDay = tehranTime.toLocaleDateString('en-US', { weekday: 'long' });
+      const persianCurrentDay = persianDayOfWeek(currentDay);
 
-    // Prisma query to delete appointments
-    const deleteResult = await prisma.appointment.deleteMany({
-      where: {
-        weeks: currentPersianDay
-      }
-    });
+      // Delete appointments matching the current Persian day of the week
+      const result = await prisma.appointment.deleteMany({
+        where: {
+          weeks: persianCurrentDay
+        }
+      });
 
-    console.log(`Deleted ${deleteResult.count} appointments for ${currentPersianDay}`);
-
-    // Logging for server-side
-    res.status(200).json({ message: `Successfully deleted appointments for ${currentPersianDay}`, count: deleteResult.count });
-  } catch (error) {
-    console.error('Error executing cron job:', error);
-    res.status(500).json({ message: 'Failed to execute cron job', error: error.message });
+      // Logging the result
+      console.log(`Deleted ${result.count} appointments for day: ${persianCurrentDay}`);
+      res.status(200).json({ message: `Deleted ${result.count} appointments`, day: persianCurrentDay });
+    } catch (error) {
+      console.error('Error deleting appointments:', error);
+      res.status(500).json({ error: 'Failed to delete appointments', details: error.message });
+    }
+  } else {
+    res.setHeader('Allow', ['POST']);
+    res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 }
