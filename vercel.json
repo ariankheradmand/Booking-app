@@ -2,7 +2,6 @@
     "crons": [
       {
         "path": "/api/crons/delete-appointments",
-        "method": "DELETE",
         "schedule": "30 7 * * *"
       }
     ]
