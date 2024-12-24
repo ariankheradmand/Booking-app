@@ -24,10 +24,10 @@ export default async function handler(req, res) {
       const currentDay = tehranTime.toLocaleDateString('en-US', { weekday: 'long' });
       const persianCurrentDay = persianDayOfWeek(currentDay);
 
-      // Delete appointments matching the current Persian day of the week
+      
       const result = await prisma.appointment.deleteMany({
         where: {
-          weeks: persianCurrentDay, // Matches appointments for the current Persian day
+          weeks: persianCurrentDay, 
         },
       });
 
