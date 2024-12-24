@@ -13,6 +13,8 @@ function Index() {
     setShow(true); // Trigger animation on page load
   }, []);
 
+
+  
   return (
     <div className="bg-second">
       <Navbar />

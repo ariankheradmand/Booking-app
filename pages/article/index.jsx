@@ -3,6 +3,7 @@ import "../../app/globals.css";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import ArticleBox from "./ArticleBox.jsx";
+import Footer from "@/components/Footer";
 
 function Index() {
   const [show, setShow] = useState(false);
@@ -53,6 +54,7 @@ function Index() {
 
 
       </div>
+      
     </div>
   );
 }
