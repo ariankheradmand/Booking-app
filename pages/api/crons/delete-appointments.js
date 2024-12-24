@@ -11,7 +11,7 @@ const persianDayOfWeek = (day) => {
     'Wednesday': 'چهارشنبه',
     'Thursday': 'پنج‌شنبه',
     'Friday': 'جمعه',
-    'Saturday': 'شنبه'
+    'Saturday': 'شنبه',
   };
   return days[day] || 'نامشخص';
 };
@@ -19,7 +19,7 @@ const persianDayOfWeek = (day) => {
 export default async function handler(req, res) {
   if (req.method === 'DELETE') {
     try {
-      // Tehran time is UTC+3:30
+      // Get Tehran time (UTC+3:30)
       const tehranTime = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Tehran' }));
       const currentDay = tehranTime.toLocaleDateString('en-US', { weekday: 'long' });
       const persianCurrentDay = persianDayOfWeek(currentDay);
@@ -27,19 +27,24 @@ export default async function handler(req, res) {
       // Delete appointments matching the current Persian day of the week
       const result = await prisma.appointment.deleteMany({
         where: {
-          weeks: persianCurrentDay
-        }
+          weeks: persianCurrentDay, // Matches appointments for the current Persian day
+        },
       });
 
       // Logging the result
       console.log(`Deleted ${result.count} appointments for day: ${persianCurrentDay}`);
-      res.status(200).json({ message: `Deleted ${result.count} appointments`, day: persianCurrentDay });
+      return res
+        .status(200)
+        .json({ message: `Deleted ${result.count} appointments for day: ${persianCurrentDay}` });
     } catch (error) {
       console.error('Error deleting appointments:', error);
-      res.status(500).json({ error: 'Failed to delete appointments', details: error.message });
+      return res.status(500).json({
+        error: 'Failed to delete appointments',
+        details: error.message,
+      });
     }
   } else {
-    res.setHeader('Allow', ['POST']);
-    res.status(405).end(`Method ${req.method} Not Allowed`);
+    res.setHeader('Allow', ['DELETE']);
+    return res.status(405).json({ error: `Method ${req.method} Not Allowed` });
   }
 }
