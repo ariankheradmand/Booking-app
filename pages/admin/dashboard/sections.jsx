@@ -34,10 +34,9 @@ function Sections() {
     return appointments.filter((appointment) => appointment.weeks === dayName);
   };
 
-  // Function to handle appointment deletion
   const handleDelete = async (id) => {
     setDeleteAppointmentId(id);
-    setShowConfirmDelete(true); // Show confirmation popup
+    setShowConfirmDelete(true);
   };
 
   const confirmDelete = async () => {
@@ -51,7 +50,6 @@ function Sections() {
       const data = await response.json();
 
       if (response.ok) {
-        // Update the state to remove the deleted appointment from the list
         setAppointments((prevAppointments) =>
           prevAppointments.filter(
             (appointment) => appointment.id !== deleteAppointmentId
@@ -59,7 +57,7 @@ function Sections() {
         );
         setSuccessMessage("با موفقیت حذف شد");
         setTimeout(() => {
-          setSuccessMessage(""); // Hide success message after 3 seconds
+          setSuccessMessage("");
         }, 3000);
       } else {
         console.error(data.error);
@@ -67,24 +65,22 @@ function Sections() {
     } catch (error) {
       console.error("Error deleting appointment:", error);
     } finally {
-      setShowConfirmDelete(false); // Close the confirmation popup
+      setShowConfirmDelete(false);
     }
   };
 
   const cancelDelete = () => {
-    setShowConfirmDelete(false); // Close the confirmation popup without deleting
+    setShowConfirmDelete(false);
   };
 
   return (
     <div className="flex flex-col justify-center items-center w-full gap-3 mb-20">
-      {/* Success Message Popup */}
       {successMessage && (
         <div className="fixed bottom-4 right-4 bg-green-500 text-white px-4 py-2 rounded-xl shadow-lg z-50">
           {successMessage}
         </div>
       )}
 
-      {/* Confirmation Popup */}
       {showConfirmDelete && (
         <div className="fixed inset-0 bg-gray-500 bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white p-6 rounded-xl shadow-lg text-center">
@@ -94,13 +90,13 @@ function Sections() {
             <div className="flex justify-center gap-4">
               <button
                 onClick={confirmDelete}
-                className="px-4 py-2 bg-red-500 text-white rounded-lg"
+                className="px-4 py-2 bg-red-500 text-white rounded-lg z-50"
               >
                 بله
               </button>
               <button
                 onClick={cancelDelete}
-                className="px-4 py-2 bg-gray-500 text-white rounded-lg"
+                className="px-4 py-2 bg-gray-500 text-white rounded-lg z-50"
               >
                 خیر
               </button>
@@ -139,27 +135,27 @@ function Sections() {
                     dayAppointments.map((app, appIndex) => (
                       <div
                         key={appIndex}
-                        className="flex flex-row-reverse items-center justify-center min-h-14 w-11/12 rounded-xl overflow-hidden"
+                        className="flex flex-row-reverse items-center justify-center min-h-14 w-11/12 rounded-xl relative"
                       >
                         <button
-                          className="absolute -right-[2px] text-xs rotate-90 bg-red-600/50 rounded-t-xl px-2 py-1 "
-                          onClick={() => handleDelete(app.id)} // Trigger delete confirmation
+                          className="absolute -right-[32px] text-xs rotate-90 bg-red-600/50 rounded-t-xl px-2 py-1 z-50 pointer-events-auto"
+                          onClick={() => handleDelete(app.id)}
                         >
                           حذف
                         </button>
-                        <a 
+                        <a
                           href={`tel:${app.phoneNumber}`}
-                          className="absolute left-[1px] text-xs rotate-[270deg] bg-yellow-400/50 rounded-t-xl px-2 py-1 "
+                          className="absolute -left-[25px] text-xs rotate-[270deg] bg-yellow-400/50 rounded-t-xl px-2 py-1 z-50 pointer-events-auto"
                         >
                           Call
                         </a>
-                        <div className="w-11/12 h-14 z-40 text-center flex items-center justify-center border-l  text-sm bg-[#FFC890]">
+                        <div className="w-11/12 h-14 z-40 text-center flex items-center justify-center border-l  text-sm bg-[#FFC890] rounded-r-xl">
                           <span>{app.name}</span>
                         </div>
                         <div className="w-11/12 h-14 text-center flex items-center justify-center border-x  text-sm bg-[#FFC890]">
                           <span>{app.hours}</span>
                         </div>
-                        <div className="w-11/12 h-14 text-center flex items-center justify-center border-r  text-sm bg-[#FFC890]">
+                        <div className="w-11/12 h-14 text-center flex items-center justify-center border-r  text-sm bg-[#FFC890] rounded-l-xl">
                           <span>{app.service}</span>
                         </div>
                       </div>
