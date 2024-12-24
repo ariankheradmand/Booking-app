@@ -1,7 +1,7 @@
 import "../../app/globals.css";
 import Booking from "./booking";
-import Navbar from "@/components/navbar";
-import Footer from "@/components/footer";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 export default function AppointmentForm() {
 
