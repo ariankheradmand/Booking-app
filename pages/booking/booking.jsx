@@ -21,7 +21,7 @@ function Booking() {
     weeks: "",
     hours: "",
     service: "",
-    phoneNumber: "",
+    phoneNumber: "09", // Default start with '09'
   });
   const [isLoading, setIsLoading] = useState(false);
   const [confirmationMessage, setConfirmationMessage] = useState(null);
@@ -56,12 +56,22 @@ function Booking() {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    if (name === 'phoneNumber') {
+      let phoneValue = value.replace('09', ''); // Remove '09' to check new input
+      if (/^\d*$/.test(phoneValue)) { // Test if it's only digits
+        setFormData(prev => ({ 
+          ...prev, 
+          [name]: '09' + phoneValue.slice(0, 9) // Ensure '09' at start, and max length after is 9
+        }));
+      }
+    } else {
+      setFormData(prev => ({ ...prev, [name]: value }));
+    }
   };
 
   const isFormValid = () => {
     const { name, weeks, hours, service, phoneNumber } = formData;
-    return name && weeks && hours && service && phoneNumber;
+    return name && weeks && hours && service && phoneNumber.length === 11;
   };
 
   const handleSubmit = async (e) => {
@@ -91,7 +101,7 @@ function Booking() {
           weeks: "",
           hours: "",
           service: "",
-          phoneNumber: "",
+          phoneNumber: "09",
         });
       } else {
         alert("Failed to create appointment");
@@ -109,14 +119,13 @@ function Booking() {
     <div className="w-full flex items-center justify-center mb-3">
       <form
         dir="rtl"
-        className="flex flex-col border p-4 rounded-lg gap-3 bg-accent  w-9/12 relative"
+        className="flex flex-col border p-4 rounded-lg gap-3 bg-accent  w-11/12 relative"
         onSubmit={handleSubmit}
       >
-       
-          <Image src="flower.svg" width={25} height={25} />
-          <Image className="absolute left-0 top-0" src="/sakura.svg" width={40} height={25} />
-          <Image className="absolute left-0 bottom-0" src="/sakura.svg" width={40} height={25} />
-          <Image className="absolute right-0 top-40" src="/sakura.svg" width={40} height={25} />
+        <Image src="flower.svg" width={25} height={25} />
+        <Image className="absolute left-0 top-0" src="/sakura.svg" width={40} height={25} />
+        <Image className="absolute left-0 bottom-0" src="/sakura.svg" width={40} height={25} />
+        <Image className="absolute right-0 top-40" src="/sakura.svg" width={40} height={25} />
         {isLoading && (
           <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
             <div className="text-white">در حال بارگذاری...</div>
@@ -131,15 +140,17 @@ function Booking() {
           name="name"
           value={formData.name}
           onChange={handleInputChange}
+          onPaste={handleInputChange}
         />
         <input
+          dir="ltr"
           minLength={11}
           maxLength={11}
           className="px-4 py-2 z-30 bg-black/30 text-black rounded-xl placeholder:text-black/60"
-          placeholder="شماره تماس"
           name="phoneNumber"
           value={formData.phoneNumber}
           onChange={handleInputChange}
+          onPaste={handleInputChange}
         />
         <select
           className="px-4 py-px z-30 bg-black/30 text-black rounded-xl"
@@ -192,7 +203,7 @@ function Booking() {
           {isLoading ? "در حال ارسال..." : "اضافه کردن نوبت"}
         </button>
         {confirmationMessage && (
-          <div className="fixed bottom-0 right-0 m-4 p-2 bg-green-500 text-white rounded">
+          <div className="fixed bottom-0 z-50 right-0 m-4 p-2 bg-green-500 text-white rounded">
             {confirmationMessage}
           </div>
         )}
