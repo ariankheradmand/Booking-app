@@ -1,31 +1,24 @@
-export default async function handler(req, res) {
-  if (req.method === 'DELETE' || req.method === 'GET') {
-    try {
-      // Tehran time is UTC+3:30
-      const tehranTime = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Tehran' }));
-      const currentDay = tehranTime.toLocaleDateString('en-US', { weekday: 'long' });
-      const persianCurrentDay = persianDayOfWeek(currentDay);
+// pages/api/appointments/delete/[id].js
+import prisma from '../../../../lib/prisma'; // Assuming you have prisma client in lib/prisma.js
 
-      // Delete appointments matching the current Persian day of the week
-      const result = await prisma.appointment.deleteMany({
+export default async function handler(req, res) {
+  if (req.method === 'DELETE') {
+    const { id } = req.query; // Get the id from the URL params
+
+    try {
+      // Find and delete the appointment by id
+      const appointment = await prisma.appointment.delete({
         where: {
-          weeks: persianCurrentDay,
+          id: parseInt(id), // Convert the id to an integer
         },
       });
 
-      console.log(`Deleted ${result.count} appointments for day: ${persianCurrentDay}`);
-      return res
-        .status(200)
-        .json({ message: `Deleted ${result.count} appointments for day: ${persianCurrentDay}` });
+      return res.status(200).json({ message: 'Appointment deleted successfully', appointment });
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
-      console.error('Error deleting appointments:', error);
-      return res.status(500).json({
-        error: 'Failed to delete appointments',
-        details: error.message,
-      });
+      return res.status(500).json({ error: 'Appointment not found or error occurred' });
     }
   } else {
-    res.setHeader('Allow', ['DELETE', 'GET']);
-    return res.status(405).json({ error: `Method ${req.method} Not Allowed` });
+    return res.status(405).json({ error: 'Method Not Allowed' });
   }
 }
