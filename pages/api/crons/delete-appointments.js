@@ -17,7 +17,7 @@ const persianDayOfWeek = (day) => {
 };
 
 export default async function handler(req, res) {
-  if (req.method === 'POST') {
+  if (req.method === 'DELETE') {
     try {
       // Tehran time is UTC+3:30
       const tehranTime = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Tehran' }));

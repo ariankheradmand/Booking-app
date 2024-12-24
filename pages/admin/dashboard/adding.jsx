@@ -54,8 +54,19 @@ function Adding() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const isFormValid = () => {
+    // چک کردن اینکه هر فیلد پر شده است یا خیر
+    const { name, weeks, hours, service, phoneNumber } = formData;
+    return name && weeks && hours && service && phoneNumber;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!isFormValid()) {
+      alert("لطفا همه فیلدها را پر کنید.");
+      return;
+    }
+
     try {
       const response = await fetch("/api/appointments/add", {
         method: "POST",
@@ -69,6 +80,14 @@ function Adding() {
         const result = await response.json();
         alert("Appointment successfully created!");
         console.log(result);
+        // Reset form after successful submission
+        setFormData({
+          name: "",
+          weeks: "",
+          hours: "",
+          service: "",
+          phoneNumber: "",
+        });
       } else {
         alert("Failed to create appointment");
       }
@@ -79,7 +98,11 @@ function Adding() {
 
   return (
     <div className="w-full flex items-center justify-center mb-3">
-      <form dir="rtl" className="flex flex-col border p-4 rounded-lg gap-2 border-black w-9/12" onSubmit={handleSubmit}>
+      <form
+        dir="rtl"
+        className="flex flex-col border p-4 rounded-lg gap-2 border-black w-9/12"
+        onSubmit={handleSubmit}
+      >
         <input
           className="px-4 py-px"
           placeholder="نام"
@@ -130,6 +153,8 @@ function Adding() {
           <option value="فشیال VIP">فشیال VIP</option>
         </select>
         <input
+          minLength={11}
+          maxLength={11}
           className="px-4 py-px"
           placeholder="شماره تماس"
           name="phoneNumber"
