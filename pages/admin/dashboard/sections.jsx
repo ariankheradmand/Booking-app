@@ -16,12 +16,21 @@ function Sections() {
   const [showConfirmDelete, setShowConfirmDelete] = useState(false);
   const [deleteAppointmentId, setDeleteAppointmentId] = useState(null);
   const [successMessage, setSuccessMessage] = useState("");
+  const [loading, setLoading] = useState(false); // Loading state
+  const [loadingDelete, setLoadingDelete] = useState(false); // Loading state for delete
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch("/api/appointments/get"); // Adjust API endpoint if needed
-      const data = await response.json();
-      setAppointments(data);
+      setLoading(true); // Start loading
+      try {
+        const response = await fetch("/api/appointments/get");
+        const data = await response.json();
+        setAppointments(data);
+      } catch (error) {
+        console.error("Error fetching appointments:", error);
+      } finally {
+        setLoading(false); // End loading
+      }
     };
     fetchData();
   }, []);
@@ -40,6 +49,7 @@ function Sections() {
   };
 
   const confirmDelete = async () => {
+    setLoadingDelete(true); // Start delete loading
     try {
       const response = await fetch(
         `/api/appointments/delete/${deleteAppointmentId}`,
@@ -65,6 +75,7 @@ function Sections() {
     } catch (error) {
       console.error("Error deleting appointment:", error);
     } finally {
+      setLoadingDelete(false); // End delete loading
       setShowConfirmDelete(false);
     }
   };
@@ -90,9 +101,10 @@ function Sections() {
             <div className="flex justify-center gap-4">
               <button
                 onClick={confirmDelete}
+                disabled={loadingDelete}
                 className="px-4 py-2 bg-red-500 text-white rounded-lg z-50"
               >
-                بله
+                {loadingDelete ? "در حال حذف..." : "بله"}
               </button>
               <button
                 onClick={cancelDelete}
@@ -105,72 +117,76 @@ function Sections() {
         </div>
       )}
 
-      {weeks.map((day, index) => {
-        const isOpen = activeDay === index;
-        const dayAppointments = getAppointmentsForDay(day);
-        return (
-          <div
-            key={index}
-            className="relative w-11/12 flex flex-col items-center "
-          >
+      {loading ? (
+        <div className="text-center text-gray-500 mt-6">در حال بارگذاری...</div>
+      ) : (
+        weeks.map((day, index) => {
+          const isOpen = activeDay === index;
+          const dayAppointments = getAppointmentsForDay(day);
+          return (
             <div
-              className="bg-accent w-11/12 py-2 rounded-t-xl text-center cursor-pointer nav-show"
-              onClick={() => handleDayClick(index)}
+              key={index}
+              className="relative w-11/12 flex flex-col items-center "
             >
-              {day} - {dayAppointments.length}
-            </div>
-            {isOpen && (
               <div
-                className="bg-accent w-11/12 rounded-b-xl text-center overflow-hidden nav-show"
-                style={{
-                  maxHeight: "500px",
-                  opacity: 1,
-                  transition:
-                    "max-height 0.5s ease-in-out, opacity 0.5s ease-in-out, transform 0.5s ease-in-out",
-                  transform: "translateY(0)",
-                }}
+                className="bg-accent w-11/12 py-2 rounded-t-xl text-center cursor-pointer nav-show"
+                onClick={() => handleDayClick(index)}
               >
-                <div className="p-4 flex flex-col items-center w-full justify-center gap-2">
-                  {dayAppointments.length > 0 ? (
-                    dayAppointments.map((app, appIndex) => (
-                      <div
-                        key={appIndex}
-                        className="flex flex-row-reverse items-center justify-center min-h-14 w-11/12 rounded-xl relative"
-                      >
-                        <button
-                          className="absolute -right-[32px] text-xs rotate-90 bg-red-600/50 rounded-t-xl px-2 py-1 z-50 pointer-events-auto"
-                          onClick={() => handleDelete(app.id)}
-                        >
-                          حذف
-                        </button>
-                        <a
-                          href={`tel:${app.phoneNumber}`}
-                          className="absolute -left-[30px] text-xs rotate-[270deg] bg-yellow-400/50 rounded-t-xl px-2 py-1 z-50 pointer-events-auto"
-                        >
-                          تماس
-                        </a>
-                        <div className="w-11/12 h-14 z-40 text-center flex items-center justify-center border-l  text-sm bg-[#FFC890] rounded-r-xl">
-                          <span>{app.name}</span>
-                        </div>
-                        <div className="w-11/12 h-14 text-center flex items-center justify-center border-x  text-sm bg-[#FFC890]">
-                          <span>{app.hours}</span>
-                        </div>
-                        <div className="w-11/12 h-14 text-center flex items-center justify-center border-r  text-sm bg-[#FFC890] rounded-l-xl">
-                          <span>{app.service}</span>
-                        </div>
-                      </div>
-                    ))
-                  ) : (
-                    <div className="text-sm text-gray-500" dir="rtl">
-                      نوبتی برای این روز ثبت نشده است.
-                    </div>
-                  )}
-                </div>
+                {day} - {dayAppointments.length}
               </div>
-            )}
-          </div>
-        );
-      })}
+              {isOpen && (
+                <div
+                  className="bg-accent w-11/12 rounded-b-xl text-center overflow-hidden nav-show"
+                  style={{
+                    maxHeight: "500px",
+                    opacity: 1,
+                    transition:
+                      "max-height 0.5s ease-in-out, opacity 0.5s ease-in-out, transform 0.5s ease-in-out",
+                    transform: "translateY(0)",
+                  }}
+                >
+                  <div className="p-4 flex flex-col items-center w-full justify-center gap-2">
+                    {dayAppointments.length > 0 ? (
+                      dayAppointments.map((app, appIndex) => (
+                        <div
+                          key={appIndex}
+                          className="flex flex-row-reverse items-center justify-center min-h-14 w-11/12 rounded-xl relative"
+                        >
+                          <button
+                            className="absolute -right-[32px] text-xs rotate-90 bg-red-600/50 rounded-t-xl px-2 py-1 z-50 pointer-events-auto"
+                            onClick={() => handleDelete(app.id)}
+                          >
+                            حذف
+                          </button>
+                          <a
+                            href={`tel:${app.phoneNumber}`}
+                            className="absolute -left-[30px] text-xs rotate-[270deg] bg-yellow-400/50 rounded-t-xl px-2 py-1 z-50 pointer-events-auto"
+                          >
+                            تماس
+                          </a>
+                          <div className="w-11/12 h-14 z-40 text-center flex items-center justify-center border-l  text-sm bg-[#FFC890] rounded-r-xl">
+                            <span>{app.name}</span>
+                          </div>
+                          <div className="w-11/12 h-14 text-center flex items-center justify-center border-x  text-sm bg-[#FFC890]">
+                            <span>{app.hours}</span>
+                          </div>
+                          <div className="w-11/12 h-14 text-center flex items-center justify-center border-r  text-sm bg-[#FFC890] rounded-l-xl">
+                            <span>{app.service}</span>
+                          </div>
+                        </div>
+                      ))
+                    ) : (
+                      <div className="text-sm text-gray-500" dir="rtl">
+                        نوبتی برای این روز ثبت نشده است.
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
+          );
+        })
+      )}
     </div>
   );
 }

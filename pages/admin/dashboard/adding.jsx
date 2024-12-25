@@ -221,7 +221,7 @@ function Booking() {
         </button>
 
         {confirmationMessage && (
-          <div className="fixed -bottom-16 z-50 right-0 m-4 p-2 bg-green-500 text-white rounded">
+          <div className="absolute top-0 z-100 right-0 m-4 p-2 bg-green-500 text-white rounded">
             {confirmationMessage}
           </div>
         )}
