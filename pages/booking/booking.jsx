@@ -1,5 +1,6 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
+import { SyncLoader } from "react-spinners";
 
 const daysOfWeek = [
   "شنبه",
@@ -31,7 +32,7 @@ function Booking() {
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        const response = await fetch("/api/appointments/get");
+        const response = await fetch("/api/appointments/secret");
         const data = await response.json();
         setFilterAppointments(data);
       } catch (error) {
@@ -59,16 +60,17 @@ function Booking() {
   // Handle input changes for form data
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    if (name === 'phoneNumber') {
-      let phoneValue = value.replace('09', ''); // Remove '09' to check new input
-      if (/^\d*$/.test(phoneValue)) { // Test if it's only digits
-        setFormData(prev => ({ 
-          ...prev, 
-          [name]: '09' + phoneValue.slice(0, 9) // Ensure '09' at start, and max length after is 9
+    if (name === "phoneNumber") {
+      let phoneValue = value.replace("09", ""); // Remove '09' to check new input
+      if (/^\d*$/.test(phoneValue)) {
+        // Test if it's only digits
+        setFormData((prev) => ({
+          ...prev,
+          [name]: "09" + phoneValue.slice(0, 9), // Ensure '09' at start, and max length after is 9
         }));
       }
     } else {
-      setFormData(prev => ({ ...prev, [name]: value }));
+      setFormData((prev) => ({ ...prev, [name]: value }));
     }
   };
 
@@ -113,7 +115,6 @@ function Booking() {
         const newDataResponse = await fetch("/api/appointments/get");
         const newData = await newDataResponse.json();
         setFilterAppointments(newData);
-
       } else {
         alert("Failed to create appointment");
       }
@@ -134,17 +135,40 @@ function Booking() {
         onSubmit={handleSubmit}
       >
         <Image src="flower.svg" width={25} height={25} />
-        <Image className="absolute left-0 top-0" src="/sakura.svg" width={40} height={25} />
-        <Image className="absolute left-0 bottom-0" src="/sakura.svg" width={40} height={25} />
-        <Image className="absolute right-0 top-40" src="/sakura.svg" width={40} height={25} />
-        
+        <Image
+          className="absolute left-0 top-0"
+          src="/sakura.svg"
+          width={40}
+          height={25}
+        />
+        <Image
+          className="absolute left-0 bottom-0"
+          src="/sakura.svg"
+          width={40}
+          height={25}
+        />
+        <Image
+          className="absolute right-0 top-40"
+          src="/sakura.svg"
+          width={40}
+          height={25}
+        />
+
         {isLoading && (
-          <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
-            <div className="text-white">در حال بارگذاری...</div>
+          <div className="absolute inset-0 z-[100] flex items-center justify-center rounded-xl nav-show bg-black bg-opacity-70">
+            <SyncLoader
+              color="#ffffff"
+              cssOverride={{}}
+              loading
+              margin={2}
+              speedMultiplier={1}
+            />
           </div>
         )}
 
-        <h2 className="text-md">لطفا فرم زیر را جهت رزرو نوبت با دقت پر کنید</h2>
+        <h2 className="text-md">
+          لطفا فرم زیر را جهت رزرو نوبت با دقت پر کنید
+        </h2>
 
         <input
           className="px-4 py-2 bg-black/30 text-black placeholder:text-black/60 rounded-xl border-second border-2"
@@ -154,7 +178,9 @@ function Booking() {
           onChange={handleInputChange}
           onPaste={handleInputChange}
         />
-        <span className="text-sm border-b border-black border-dashed w-max">شماره همراه خود را وارد کنید:</span>
+        <span className="text-sm border-b border-black border-dashed w-max">
+          شماره همراه خود را وارد کنید:
+        </span>
         <input
           dir="ltr"
           minLength={11}

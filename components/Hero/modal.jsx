@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { HashLoader } from "react-spinners";
 
 function Modal({ onClose }) {
   const [name, setName] = useState("");
@@ -44,8 +45,12 @@ function Modal({ onClose }) {
       return (
         <div className="text-center text-green-700 w-">
           <div className="bg-green-300 border-green-800 border border-dashed px-4">
-          <p className="text-sm mt-4 mb-4 border-b border-dashed border-green-800 w-max">اطلاعات با موفقیت ارسال شد!</p>
-          <p className="text-sm mt-4 mb-4 border-b border-dashed border-green-800 w-max">به زودی با شما تماس گرفته خواهد شد.</p>
+            <p className="text-sm mt-4 mb-4 border-b border-dashed border-green-800 w-max">
+              اطلاعات با موفقیت ارسال شد!
+            </p>
+            <p className="text-sm mt-4 mb-4 border-b border-dashed border-green-800 w-max">
+              به زودی با شما تماس گرفته خواهد شد.
+            </p>
           </div>
           <button
             onClick={onClose}
@@ -61,8 +66,13 @@ function Modal({ onClose }) {
       return (
         <div className=" text-red-600">
           <div className="bg-red-300 border-red-800 border border-dashed px-4">
-          <p className="text-sm mt-4 mb-4 border-b border-dashed border-red-800 w-max">مشکلی پیش آمده لطفا بعدا دوباره تلاش کنید.</p>
-          <p className="text-sm mt-4 mb-4 border-b border-dashed border-red-800 w-max"> لطفا از استفاده شمارگان فارسی پرهیز نمایید.</p>
+            <p className="text-sm mt-4 mb-4 border-b border-dashed border-red-800 w-max">
+              مشکلی پیش آمده لطفا بعدا دوباره تلاش کنید.
+            </p>
+            <p className="text-sm mt-4 mb-4 border-b border-dashed border-red-800 w-max">
+              {" "}
+              لطفا از استفاده شمارگان فارسی پرهیز نمایید.
+            </p>
           </div>
           <button
             onClick={() => {
@@ -111,6 +121,8 @@ function Modal({ onClose }) {
                 onChange={(e) => setName(e.target.value)}
               />
               <input
+                minLength={11}
+                maxLength={11}
                 dir="rtl"
                 type="tel"
                 placeholder="شماره تماس"
@@ -131,16 +143,23 @@ function Modal({ onClose }) {
                 <option value="کربوکسی تراپی">کربوکسی تراپی</option>
                 <option value="فشیال VIP">فشیال VIP</option>
               </select>
-              <div className="text-sm mb-4 border-b border-dashed border-black w-max">لطفا از کلمات فارسی برای نام و نام خانودگی استفاده کنید</div>
-              <div className="text-sm mt-4 mb-4 border-b border-dashed border-black w-max">لطفا از شمارگان لاتین استفاده کنید</div>
-              
+              <div className="text-sm mb-4 border-b border-dashed border-black w-max">
+                لطفا از کلمات فارسی برای نام و نام خانودگی استفاده کنید
+              </div>
+              <div className="text-sm mt-4 mb-4 border-b border-dashed border-black w-max">
+                لطفا از شمارگان لاتین استفاده کنید
+              </div>
 
               <button
                 type="submit"
                 className="w-full bg-first text-main_text py-2 rounded"
                 disabled={isLoading} // Disable button when loading
               >
-                {isLoading ? 'در حال ارسال...' : 'ارسال'}
+                {isLoading ? (
+                  <HashLoader color="white" size={20}/>
+                ) : (
+                  <div>ارسال</div>
+                )}
               </button>
             </form>
           </>
