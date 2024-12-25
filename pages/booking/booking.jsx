@@ -26,6 +26,12 @@ function Booking() {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [confirmationMessage, setConfirmationMessage] = useState(null);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  const handleOptionClick = (option) => {
+    setSelectedOption(option);
+    setIsDropdownOpen(false);
+  };
 
   // Fetch appointments data
   useEffect(() => {

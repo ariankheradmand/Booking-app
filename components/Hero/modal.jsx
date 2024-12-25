@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { HashLoader } from "react-spinners";
+import 'animate.css';
 
 function Modal({ onClose }) {
   const [name, setName] = useState("");
@@ -138,19 +139,19 @@ function Modal({ onClose }) {
               />
               <div> لطفا فیلد مورد نظر برای مشاوره را انتخاب نمایید </div>
               <div
-                className="relative w-full p-2 mb-4 border rounded cursor-pointer bg-white"
+                className="relative w-full p-2 mb-4 border rounded cursor-pointer  border-second bg-white"
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
               >
-                {selectedOption || "لطفاً انتخاب کنید"}
+                <div className="animate__animated animate__fadeIn">{selectedOption || "لطفاً انتخاب کنید"}</div>
                 <div
-                  className={`absolute top-full left-0 w-full bg-white border rounded mt-1 ${
+                  className={`absolute top-full left-0 w-full bg-white border rounded mt-1 animate__animated animate__fadeIn border-second ${
                     isDropdownOpen ? "block" : "hidden"
                   }`}
                 >
                   {options.map((option, index) => (
                     <div
                       key={index}
-                      className="p-2 hover:bg-gray-200 cursor-pointer"
+                      className="p-2 hover:bg-gray-200 cursor-pointer animate__animated animate__fadeInUp border-b border-second"
                       onClick={() => handleOptionClick(option)}
                     >
                       {option}
