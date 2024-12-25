@@ -35,7 +35,7 @@ export default function AppointmentForm() {
       >
         <button
           onClick={handleBack}
-          className="fixed right-4 -top-16 p-2 z-50 bg-first text-white rounded"
+          className="fixed right-4 -top-16 p-2 z-50 bg-first text-white rounded nav-show"
         >
           برگشت
         </button>

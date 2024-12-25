@@ -111,17 +111,17 @@ function Sections() {
         return (
           <div
             key={index}
-            className="relative w-11/12 flex flex-col items-center"
+            className="relative w-11/12 flex flex-col items-center "
           >
             <div
-              className="bg-accent w-11/12 py-2 rounded-t-xl text-center cursor-pointer"
+              className="bg-accent w-11/12 py-2 rounded-t-xl text-center cursor-pointer nav-show"
               onClick={() => handleDayClick(index)}
             >
               {day} - {dayAppointments.length}
             </div>
             {isOpen && (
               <div
-                className="bg-accent w-11/12 rounded-b-xl text-center overflow-hidden"
+                className="bg-accent w-11/12 rounded-b-xl text-center overflow-hidden nav-show"
                 style={{
                   maxHeight: "500px",
                   opacity: 1,
@@ -145,9 +145,9 @@ function Sections() {
                         </button>
                         <a
                           href={`tel:${app.phoneNumber}`}
-                          className="absolute -left-[25px] text-xs rotate-[270deg] bg-yellow-400/50 rounded-t-xl px-2 py-1 z-50 pointer-events-auto"
+                          className="absolute -left-[30px] text-xs rotate-[270deg] bg-yellow-400/50 rounded-t-xl px-2 py-1 z-50 pointer-events-auto"
                         >
-                          Call
+                          تماس
                         </a>
                         <div className="w-11/12 h-14 z-40 text-center flex items-center justify-center border-l  text-sm bg-[#FFC890] rounded-r-xl">
                           <span>{app.name}</span>
@@ -161,7 +161,7 @@ function Sections() {
                       </div>
                     ))
                   ) : (
-                    <div className="text-sm text-gray-500">
+                    <div className="text-sm text-gray-500" dir="rtl">
                       نوبتی برای این روز ثبت نشده است.
                     </div>
                   )}

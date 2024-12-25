@@ -83,7 +83,7 @@ function Modal({ onClose }) {
   return (
     <div
       dir="rtl"
-      className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+      className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 -top-80"
       onClick={(e) => e.target.id === "modal-background" && onClose()}
     >
       <div

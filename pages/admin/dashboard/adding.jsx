@@ -26,6 +26,7 @@ function Booking() {
   const [isLoading, setIsLoading] = useState(false);
   const [confirmationMessage, setConfirmationMessage] = useState(null);
 
+  // Fetch appointments data
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
@@ -42,6 +43,7 @@ function Booking() {
     fetchData();
   }, []);
 
+  // Update available hours based on selected day
   useEffect(() => {
     if (selectedDay) {
       const reservedHours = filterAppointments
@@ -54,6 +56,7 @@ function Booking() {
     }
   }, [selectedDay, filterAppointments]);
 
+  // Handle input changes for form data
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     if (name === 'phoneNumber') {
@@ -69,11 +72,13 @@ function Booking() {
     }
   };
 
+  // Check if form is valid
   const isFormValid = () => {
     const { name, weeks, hours, service, phoneNumber } = formData;
     return name && weeks && hours && service && phoneNumber.length === 11;
   };
 
+  // Handle form submission and refresh appointment data
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!isFormValid()) {
@@ -103,6 +108,12 @@ function Booking() {
           service: "",
           phoneNumber: "09",
         });
+
+        // Fetch updated data
+        const newDataResponse = await fetch("/api/appointments/get");
+        const newData = await newDataResponse.json();
+        setFilterAppointments(newData);
+
       } else {
         alert("Failed to create appointment");
       }
@@ -119,41 +130,44 @@ function Booking() {
     <div className="w-full flex items-center justify-center mb-3">
       <form
         dir="rtl"
-        className="flex flex-col border p-4 rounded-lg gap-3 bg-accent  w-11/12 relative"
+        className="flex flex-col border p-4 rounded-lg gap-3 bg-accent w-11/12 relative nav-show"
         onSubmit={handleSubmit}
       >
         <Image src="/flower.svg" width={25} height={25} />
         <Image className="absolute left-0 top-0" src="/sakura.svg" width={40} height={25} />
         <Image className="absolute left-0 bottom-0" src="/sakura.svg" width={40} height={25} />
         <Image className="absolute right-0 top-40" src="/sakura.svg" width={40} height={25} />
+        
         {isLoading && (
           <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
             <div className="text-white">در حال بارگذاری...</div>
           </div>
         )}
-        <h2 className="text-sm">
-          لطفا فرم زیر را جهت رزرو نوبت با دقت پر کنید
-        </h2>
+
+        <h2 className="text-md">لطفا فرم زیر را جهت رزرو نوبت با دقت پر کنید</h2>
+
         <input
-          className="px-4 py-2 bg-black/30 text-black placeholder:text-black/60 rounded-xl"
+          className="px-4 py-2 bg-black/30 text-black placeholder:text-black/60 rounded-xl border-second border-2"
           placeholder="نام"
           name="name"
           value={formData.name}
           onChange={handleInputChange}
           onPaste={handleInputChange}
         />
+        <span className="text-sm border-b border-black border-dashed w-max">شماره همراه خود را وارد کنید:</span>
         <input
           dir="ltr"
           minLength={11}
           maxLength={11}
-          className="px-4 py-2 z-30 bg-black/30 text-black rounded-xl placeholder:text-black/60"
+          className="px-4 py-2 z-30 bg-black/30 text-black rounded-xl placeholder:text-black/60 border-second border-2"
           name="phoneNumber"
           value={formData.phoneNumber}
           onChange={handleInputChange}
           onPaste={handleInputChange}
         />
+
         <select
-          className="px-4 py-px z-30 bg-black/30 text-black rounded-xl"
+          className="px-4 py-2 z-30 bg-black/30 text-black rounded-xl border-second border-2"
           name="weeks"
           value={formData.weeks}
           onChange={(e) => {
@@ -168,8 +182,9 @@ function Booking() {
             </option>
           ))}
         </select>
+
         <select
-          className="px-4 py-px bg-black/30 text-black rounded-xl"
+          className="px-4 py-2 bg-black/30 text-black rounded-xl border-second border-2"
           name="hours"
           value={formData.hours}
           onChange={handleInputChange}
@@ -181,8 +196,9 @@ function Booking() {
             </option>
           ))}
         </select>
+
         <select
-          className="px-4 py-px bg-black/30 text-black rounded-xl"
+          className="px-4 py-2 bg-black/30 text-black rounded-xl border-second border-2"
           name="service"
           value={formData.service}
           onChange={handleInputChange}
@@ -195,6 +211,7 @@ function Booking() {
           <option value="فشیال VIP">فشیال VIP</option>
           <option value="پاک سازی پوست">پاک سازی پوست</option>
         </select>
+
         <button
           className="w-1/2 bg-first p-2 mt-px rounded-xl text-white"
           type="submit"
@@ -202,6 +219,7 @@ function Booking() {
         >
           {isLoading ? "در حال ارسال..." : "اضافه کردن نوبت"}
         </button>
+
         {confirmationMessage && (
           <div className="fixed -bottom-16 z-50 right-0 m-4 p-2 bg-green-500 text-white rounded">
             {confirmationMessage}

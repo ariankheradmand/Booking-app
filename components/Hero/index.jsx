@@ -13,7 +13,7 @@ function Index() {
     <div className="flex flex-col gap-7 relative items-center justify-center pt-12">
       
       <h1
-        className="font-bold text-3xl w-56 text-text text-center border-text border-r-2 border-l-2"
+        className="font-bold text-3xl w-56  text-text text-center border-text border-r-2 border-l-2"
         dir="rtl"
       >
         مراقبت از پوست با تیلدا
@@ -22,7 +22,7 @@ function Index() {
         </span>
       </h1>
       <button
-        className="bg-first text-main_text py-2 px-4 rounded-xl"
+        className="bg-first text-main_text py-2 px-4 rounded-xl nav-show"
         onClick={toggleModal}
       >
         برای مشاوره کلیک کنید

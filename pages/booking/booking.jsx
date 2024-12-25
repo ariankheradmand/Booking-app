@@ -130,7 +130,7 @@ function Booking() {
     <div className="w-full flex items-center justify-center mb-3">
       <form
         dir="rtl"
-        className="flex flex-col border p-4 rounded-lg gap-3 bg-accent w-11/12 relative"
+        className="flex flex-col border p-4 rounded-lg gap-3 bg-accent w-11/12 relative nav-show"
         onSubmit={handleSubmit}
       >
         <Image src="flower.svg" width={25} height={25} />
@@ -144,22 +144,22 @@ function Booking() {
           </div>
         )}
 
-        <h2 className="text-sm">لطفا فرم زیر را جهت رزرو نوبت با دقت پر کنید</h2>
+        <h2 className="text-md">لطفا فرم زیر را جهت رزرو نوبت با دقت پر کنید</h2>
 
         <input
-          className="px-4 py-2 bg-black/30 text-black placeholder:text-black/60 rounded-xl"
+          className="px-4 py-2 bg-black/30 text-black placeholder:text-black/60 rounded-xl border-second border-2"
           placeholder="نام"
           name="name"
           value={formData.name}
           onChange={handleInputChange}
           onPaste={handleInputChange}
         />
-
+        <span className="text-sm border-b border-black border-dashed w-max">شماره همراه خود را وارد کنید:</span>
         <input
           dir="ltr"
           minLength={11}
           maxLength={11}
-          className="px-4 py-2 z-30 bg-black/30 text-black rounded-xl placeholder:text-black/60"
+          className="px-4 py-2 z-30 bg-black/30 text-black rounded-xl placeholder:text-black/60 border-second border-2"
           name="phoneNumber"
           value={formData.phoneNumber}
           onChange={handleInputChange}
@@ -167,7 +167,7 @@ function Booking() {
         />
 
         <select
-          className="px-4 py-px z-30 bg-black/30 text-black rounded-xl"
+          className="px-4 py-2 z-30 bg-black/30 text-black rounded-xl border-second border-2"
           name="weeks"
           value={formData.weeks}
           onChange={(e) => {
@@ -184,7 +184,7 @@ function Booking() {
         </select>
 
         <select
-          className="px-4 py-px bg-black/30 text-black rounded-xl"
+          className="px-4 py-2 bg-black/30 text-black rounded-xl border-second border-2"
           name="hours"
           value={formData.hours}
           onChange={handleInputChange}
@@ -198,7 +198,7 @@ function Booking() {
         </select>
 
         <select
-          className="px-4 py-px bg-black/30 text-black rounded-xl"
+          className="px-4 py-2 bg-black/30 text-black rounded-xl border-second border-2"
           name="service"
           value={formData.service}
           onChange={handleInputChange}

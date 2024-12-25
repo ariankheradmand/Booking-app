@@ -4,6 +4,7 @@ import Experience from "@/components/Experience";
 import Navbar from "@/components/Navbar";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 const main_data =
   "پاکسازی پوست با حذف آلودگی‌ها، چربی اضافی و سلول‌های مرده، به شفافیت و سلامت پوست کمک می‌کند. این کار از انسداد منافذ، بروز جوش و پیری زودرس جلوگیری کرده و جذب بهتر محصولات مراقبتی را ممکن می‌سازد. پاکسازی منظم، پوست را شاداب و جوان نگه می‌دارد.";
@@ -74,7 +75,7 @@ function Index() {
           <div
             onClick={changingData}
             dir="rtl"
-            className="flex flex-col items-center justify-center py-1 px-4 mt-4 rounded-lg bg-third w-10/12 transition-all duration-500 overflow-hidden"
+            className="flex flex-col items-center nav-show justify-center py-1 px-4 mt-4 rounded-lg bg-third w-10/12 transition-all duration-500 overflow-hidden"
             style={{ height }}
           >
             <h3 className=" pb-4">چرا پاکسازی پوست ؟</h3>
@@ -91,13 +92,13 @@ function Index() {
           </div>
         </div>
         <div className="flex items-center justify-center pb-6 w-9/12 border-dashed border-white border-b-2">
-          <button className="mt-6 bg-first text-white px-2 py-px rounded-lg border-white border">
+          <Link href={"/booking"} className="mt-6 bg-first text-white px-2 py-2 nav-show rounded-lg ">
             برای رزرو وقت کلیک کنید
-          </button>
+          </Link>
         </div>
         <button
           onClick={handleBack}
-          className="fixed right-4 top-4 p-2 bg-first text-white rounded"
+          className="fixed right-4 top-4 p-2 nav-show bg-first text-white rounded"
           aria-label="Go back to homepage"
         >
           برگشت

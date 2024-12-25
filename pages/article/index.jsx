@@ -47,7 +47,7 @@ function Index() {
 
         <button
           onClick={handleBack}
-          className="fixed right-4 mt-4 p-2 bg-first text-white rounded"
+          className="fixed right-4 mt-4 p-2 bg-first text-white rounded nav-show"
         >
           برگشت
         </button>

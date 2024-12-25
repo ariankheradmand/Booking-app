@@ -76,10 +76,10 @@ function Index() {
   };
 
   return (
-    <div  className="flex items-center justify-center">
+    <div  className="flex items-center justify-center ">
       <button
         onClick={next}
-        className="w-14 mr-2 h-14 flex items-center justify-center bg-first text-white rounded-full scale-75"
+        className="w-14 mr-2 h-14 nav-show flex items-center justify-center bg-first text-white rounded-full scale-75"
       >
         <Image src="Arrow-l.svg" width={33} height={33} />
       </button>
@@ -87,11 +87,9 @@ function Index() {
         <h2 className="text-xl border-b border-dashed border-black mb-4">
           تجربیات شما عزیزان
         </h2>
-
-        {/* Add smooth transition classes */}
         <div
-          className="relative mb-4 w-56 h-56 py-3 px-3 rounded-xl bg-third transition-all duration-700 ease-in-out"
-          key={index} // Force re-render to trigger transition on index change
+          className="relative nav-show mb-4 w-56 h-56 py-3 px-3 rounded-xl bg-third transition-all duration-700 ease-in-out"
+          key={index} 
         >
           <Image
             src="Profile-logo.svg"
@@ -107,7 +105,7 @@ function Index() {
       </div>
       <button
         onClick={prev}
-        className="w-14 ml-2 h-14 flex items-center justify-center bg-first text-white rounded-full scale-75"
+        className="w-14 ml-2 h-14 nav-show flex items-center justify-center bg-first text-white rounded-full scale-75"
       >
         <Image src="Arrow-r.svg" width={33} height={33} />
       </button>
