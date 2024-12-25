@@ -93,12 +93,12 @@ function Index() {
         >
           <Image
             src="Profile-logo.svg"
-            className="absolute left-0"
+            className="absolute left-0 animate__animated animate__fadeIn"
             width={40}
             height={33}
           />
-          <h3 className="text-lg text-end font-semibold">{data[index].name}</h3>
-          <p dir="rtl" className="text-md text-center pt-6 text-gray-600">
+          <h3 className=" animate__animated animate__fadeIn text-lg text-end font-semibold">{data[index].name}</h3>
+          <p dir="rtl" className="text-md text-center pt-6 text-gray-600 animate__animated animate__fadeIn">
             {data[index].detailed}
           </p>
         </div>

@@ -109,6 +109,9 @@ body {
 
 
 
+.custom-animation {
+  --animate-duration: 2s;
+}
 
 
 @keyframes slideUp {

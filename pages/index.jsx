@@ -5,6 +5,7 @@ import Hero from "../components/Hero/index.jsx";
 import Services from "../components/Services/index.jsx";
 import Experiences from "../components/Experience/index.jsx";
 import Footer from "../components/Footer/index.jsx";
+import 'animate.css';
 
 function Index() {
   const [show, setShow] = useState(false);

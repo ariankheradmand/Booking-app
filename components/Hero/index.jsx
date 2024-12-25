@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Modal from "./modal";
 import Link from "next/link";
 
+
 function Index() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -25,9 +26,9 @@ function Index() {
         <Link
           dir="rtl"
           href={"/booking"}
-          className="bg-accent text-black rounded-l-xl nav-show py-2 px-2 font-bold border-2 border-first hover:scale-110 focus:scale-110 transition"
+          className="bg-accent   text-black rounded-l-xl nav-show py-2 px-2 font-bold border-2 border-first hover:scale-110 focus:scale-110 transition"
         >
-          رزرو؟
+         <p  className="animate__animated animate__fadeIn custom-animation animate__infinite">رزرو؟</p>
         </Link>
         <button
           className="bg-first text-main_text py-2 px-4 rounded-r-xl nav-show border-2 border-accent hover:scale-110 focus:scale-110 transition"
