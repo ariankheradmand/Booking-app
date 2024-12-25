@@ -5,11 +5,12 @@ import Navbar from "@/components/Navbar";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import 'animate.css';
 
 const main_data =
   "پاکسازی پوست با حذف آلودگی‌ها، چربی اضافی و سلول‌های مرده، به شفافیت و سلامت پوست کمک می‌کند. این کار از انسداد منافذ، بروز جوش و پیری زودرس جلوگیری کرده و جذب بهتر محصولات مراقبتی را ممکن می‌سازد. پاکسازی منظم، پوست را شاداب و جوان نگه می‌دارد.";
 const shortedData =
-  "پاکسازی پوست با حذف آلودگی‌ها، چربی اضافی و سلول‌های مرده، به شفافیت و سلامت پوست کمک می‌کند...";
+  "پاکسازی پوست با حذف آلودگی‌ها، چربی اضافی و سلول‌های مرده، به شفافیت و سلامت پوست کمک می‌کند. این کار از...";
 
 function Index() {
   const [data, setData] = useState(shortedData);
@@ -78,7 +79,7 @@ function Index() {
             className="flex flex-col items-center nav-show justify-center py-1 px-4 mt-4 rounded-lg bg-third w-10/12 transition-all duration-500 overflow-hidden"
             style={{ height }}
           >
-            <h3 className=" pb-4">چرا پاکسازی پوست ؟</h3>
+            <h3 className="pb-4">چرا پاکسازی پوست ؟</h3>
             <h4 className="text-xs opacity-80" ref={contentRef}>
               {data}
             </h4>

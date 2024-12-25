@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import ArticleData from "../../libs/ArticleData";
 import Image from "next/image";
+import 'animate.css';
 
 const filterd = ArticleData.length >= 2 ? ArticleData.slice(0, 2) : ArticleData;
 
@@ -70,20 +71,19 @@ function ArticleBox() {
           key={article.id}
           className="flex flex-row-reverse w-11/12 h-28 px-1 rounded-lg overflow-hidden items-center justify-center bg-accent nav-show"
         >
-          <div className="w-2/12 text-xs text-center font-bold px-1">
+          <div className="w-2/12 text-xs text-center font-bold px-1 animate__animated animate__fadeIn">
             {article.name}
           </div>
           <div
             dir="rtl"
-            className="border-l border-r py-2 px-2 border-black h-full w-8/12 text-sm text-center"
+            className="border-l border-r py-2 px-2 border-black h-full w-8/12 text-sm text-center animate__animated animate__fadeIn"
           >
             {formatText(article.details, 20, ["#0D6986"])}
           </div>
           <button
             onClick={() => openModal(article)}
-            className="flex flex-col gap-4 items-center justify-center w-2/12"
+            className="flex flex-col items-center justify-center w-2/12 animate__animated animate__fadeIn"
           >
-            <div className="text-center">ادامه مطلب</div>
             <Image src="/continued.svg" width={21} height={16} alt="Continue icon" />
           </button>
         </div>
@@ -91,7 +91,7 @@ function ArticleBox() {
       <div className="w-11/12 flex items-end justify-end">
         <button
           onClick={handleAddingNewContent}
-          className="w-max py-1 px-2 rounded-lg bg-accent nav-show border border-black"
+          className="w-max py-1 px-2 rounded-lg bg-accent nav-show border border-black "
         >
           {buttonText}
         </button>
@@ -106,7 +106,7 @@ function ArticleBox() {
               <span className="close text-xl " onClick={closeModal}>×</span>
             </div>
             <div>
-              <p>{formatText(modalContent.details, undefined, ['#0D6986'])}</p>
+              <p className="animate__animated animate__fadeIn">{formatText(modalContent.details, undefined, ['#0D6986'])}</p>
             </div>
           </div>
         </div>
