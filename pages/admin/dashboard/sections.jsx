@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React, { useState, useEffect } from "react";
 
 const weeks = [
@@ -153,16 +154,16 @@ function Sections() {
                           className="flex flex-row-reverse items-center justify-center min-h-14 w-11/12 rounded-xl relative"
                         >
                           <button
-                            className="absolute -right-[32px] text-xs rotate-90 bg-red-600/50 rounded-t-xl px-2 py-1 z-50 pointer-events-auto"
+                            className="absolute -right-[25px] text-xs rotate-90 bg-red-600/50 rounded-t-xl px-2 py-1 z-20 pointer-events-auto"
                             onClick={() => handleDelete(app.id)}
                           >
-                            حذف
+                            <Image className="-rotate-90" width={15} height={25} src={"/delete.svg"} />
                           </button>
                           <a
                             href={`tel:${app.phoneNumber}`}
-                            className="absolute -left-[30px] text-xs rotate-[270deg] bg-yellow-400/50 rounded-t-xl px-2 py-1 z-50 pointer-events-auto"
+                            className="absolute -left-[25px] text-xs -rotate-90 bg-green-500 rounded-t-xl px-2 py-1 z-20 pointer-events-auto"
                           >
-                            تماس
+                            <Image width={15} height={25} src={"/call.svg"} />
                           </a>
                           <div className="w-11/12 h-14 z-40 text-center flex items-center justify-center border-l  text-sm bg-[#FFC890] rounded-r-xl">
                             <span>{app.name}</span>
@@ -170,7 +171,7 @@ function Sections() {
                           <div className="w-11/12 h-14 text-center flex items-center justify-center border-x  text-sm bg-[#FFC890]">
                             <span>{app.hours}</span>
                           </div>
-                          <div className="w-11/12 h-14 text-center flex items-center justify-center border-r  text-sm bg-[#FFC890] rounded-l-xl">
+                          <div className="w-11/12 h-14 z-40  text-center flex items-center justify-center border-r  text-sm bg-[#FFC890] rounded-l-xl">
                             <span>{app.service}</span>
                           </div>
                         </div>

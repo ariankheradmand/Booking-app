@@ -153,6 +153,7 @@ function Booking() {
           value={formData.name}
           onChange={handleInputChange}
           onPaste={handleInputChange}
+          maxLength={32}
         />
         <span className="text-sm border-b border-black border-dashed w-max">شماره همراه خود را وارد کنید:</span>
         <input
