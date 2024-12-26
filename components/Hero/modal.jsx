@@ -58,7 +58,7 @@ function Modal({ onClose }) {
     if (feedback === "success") {
       return (
         <div className="text-center text-green-700">
-          <div className="bg-green-300 border-green-800 border border-dashed px-4">
+          <div className="bg-green-300 border-green-800 border border-dashed p-4">
             <p className="text-sm mt-4 mb-4 border-b border-dashed border-green-800 w-max">
               اطلاعات با موفقیت ارسال شد!
             </p>
@@ -68,7 +68,7 @@ function Modal({ onClose }) {
           </div>
           <button
             onClick={onClose}
-            className="mt-4 bg-first text-main_text py-2 px-4 rounded"
+            className="mt-4 bg-first text-main_text py-2 px-4 rounded w-full"
           >
             بستن
           </button>
@@ -79,7 +79,7 @@ function Modal({ onClose }) {
     if (feedback === "error") {
       return (
         <div className="text-red-600">
-          <div className="bg-red-300 border-red-800 border border-dashed px-4">
+          <div className="bg-red-300 border-red-800 border border-dashed p-4">
             <p className="text-sm mt-4 mb-4 border-b border-dashed border-red-800 w-max">
               مشکلی پیش آمده لطفا بعدا دوباره تلاش کنید.
             </p>
@@ -89,7 +89,7 @@ function Modal({ onClose }) {
           </div>
           <button
             onClick={() => setFeedback(null)}
-            className="mt-4 bg-first text-main_text py-2 px-4 rounded"
+            className="mt-4 bg-first text-main_text py-2 px-4 rounded w-full"
           >
             بازگشت
           </button>
@@ -103,10 +103,10 @@ function Modal({ onClose }) {
   return (
     <div
       dir="rtl"
-      className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+      className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center animate__animated animate__fadeIn -mt-96 z-50"
       onClick={(e) => e.target.id === "modal-background" && onClose()}
     >
-      <div id="modal-background" className="bg-white rounded-lg p-6 w-96 relative">
+      <div id="modal-background" className="bg-white rounded-lg p-6 mx-4 w-full max-w-md animate__animated animate__fadeIn relative">
         <button
           className="absolute top-2 right-2 text-gray-600"
           onClick={onClose}
@@ -139,7 +139,7 @@ function Modal({ onClose }) {
               />
               <div> لطفا فیلد مورد نظر برای مشاوره را انتخاب نمایید </div>
               <div
-                className="relative w-full p-2 mb-4 border rounded cursor-pointer  border-second bg-white"
+                className="relative w-full p-2 mb-4 border rounded cursor-pointer border-second bg-white"
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
               >
                 <div className="animate__animated animate__fadeIn">{selectedOption || "لطفاً انتخاب کنید"}</div>
