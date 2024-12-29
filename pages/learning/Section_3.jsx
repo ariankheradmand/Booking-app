@@ -20,7 +20,7 @@ function Section_two({ data }) {
         <div
           ref={ref}
           dir="rtl"
-          className={`flex items-center justify-center w-full text-white  overflow-hidden pb-14 ${
+          className={`flex items-center justify-start w-full text-white  overflow-hidden pb-14 ${
             inView ? "animate__animated animate__backInRight" : "opacity-0"
           }`}
         >
