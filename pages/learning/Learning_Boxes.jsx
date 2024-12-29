@@ -21,7 +21,6 @@ function Boxes() {
   useEffect(() => {
     setShow(true);
 
-    // Generate random positions for the snowflakes based on container size
     const generateRandomPositions = () => {
       const container = containerRef.current;
       if (!container) return [];
@@ -35,6 +34,14 @@ function Boxes() {
     };
 
     setSnowflakes(generateRandomPositions());
+
+    // Update snowflake positions every 200ms
+    const intervalId = setInterval(() => {
+      setSnowflakes(generateRandomPositions());
+    }, 1000);
+
+    // Cleanup interval on component unmount
+    return () => clearInterval(intervalId);
   }, []);
 
   const handleBack = () => {
@@ -49,7 +56,7 @@ function Boxes() {
   return (
     <div
       ref={containerRef}
-      className="flex flex-col items-center relative w-full"
+      className="flex flex-col items-center relative w-full overflow-hidden"
     >
       <div className="flex items-center gap-2 justify-center pt-4 border-b-2 border-first border-dashed w-11/12 pb-3 animate__animated animate__flash">
         <Image src="teach.svg" width={48} height={48} alt="Teach Icon" />
@@ -57,26 +64,26 @@ function Boxes() {
       </div>
 
       <Image
-          className="animate__animated animate__flash custom-animation absolute top-48 right-0"
-          src="SnowBig.svg"
-          width={150}
-          height={105}
-          alt={`SnowArt`}
-        />
-        <Image
-          className="animate__animated animate__flash custom-animation absolute top-[750px] rotate-180 left-0"
-          src="SnowBig.svg"
-          width={150}
-          height={105}
-          alt={`SnowArt`}
-        />
-        <Image
-          className="animate__animated animate__flash custom-animation absolute top-[1450px] right-0"
-          src="SnowBig.svg"
-          width={150}
-          height={105}
-          alt={`SnowArt`}
-        />
+        className="animate__animated animate__flash custom-animation absolute top-48 right-0"
+        src="SnowBig.svg"
+        width={150}
+        height={105}
+        alt={`SnowArt`}
+      />
+      <Image
+        className="animate__animated animate__flash custom-animation absolute top-[750px] rotate-180 left-0"
+        src="SnowBig.svg"
+        width={150}
+        height={105}
+        alt={`SnowArt`}
+      />
+      <Image
+        className="animate__animated animate__flash custom-animation absolute top-[1450px] right-0"
+        src="SnowBig.svg"
+        width={150}
+        height={105}
+        alt={`SnowArt`}
+      />
 
       {/* Render snowflakes */}
       {snowflakes.map((position, index) => (

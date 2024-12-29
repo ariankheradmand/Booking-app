@@ -8,7 +8,7 @@ function Section_two({ data }) {
   return (
     <div
       dir="rtl"
-      className="flex items-center justify-center w-full text-white mt-12 "
+      className="flex items-center justify-center w-full text-white mt-12 pb-12 "
     >
       <div className=" w-11/12 relative flex flex-col items-end">
         <div className="w-[260px]">
