@@ -41,27 +41,28 @@ function ArticleBox() {
     <div className="flex flex-col items-center gap-4 mt-4">
       {articles.map((article) => (
         <div
+          onClick={() => openModal(article)}
           key={article.id}
-          className="flex flex-row-reverse w-11/12 h-28 px-1 rounded-lg overflow-hidden items-center justify-center bg-accent nav-show"
+          className="flex flex-row-reverse w-11/12 h-28 px-1 cursor-pointer rounded-lg overflow-hidden items-center justify-center bg-accent nav-show"
         >
           <div className="w-2/12 text-xs text-center font-bold px-1 animate__animated animate__fadeIn">
             {article.name}
           </div>
           <div
             dir="rtl"
-            className="flex items-center border-l border-r py-2 px-2 border-black h-full w-8/12 text-sm text-center animate__animated animate__fadeIn"
+            className="flex items-center  border-r border-dashed py-2 px-2 border-black h-full w-8/12 text-sm text-center animate__animated animate__fadeIn"
           >
             <span>{article.d_header} ...</span>
           </div>
           <button
             onClick={() => openModal(article)}
-            className="flex flex-col items-center justify-center w-2/12 animate__animated animate__fadeIn"
+            className="flex flex-col items-center justify-center gap-2 w-2/12 animate__animated animate__fadeIn "
           >
-            <Image src="/continued.svg" width={21} height={16} alt="Continue icon" />
+            <Image className=" animate__animated animate__pulse animate__infinite" src="/continued.svg" width={26} height={16} alt="Continue icon" />
           </button>
         </div>
       ))}
-      <div className="w-11/12 flex items-end justify-end">
+      <div className="w-11/12 flex  items-end justify-end">
         <button
           onClick={handleAddingNewContent}
           className="w-max py-1 px-2 rounded-lg bg-accent nav-show border border-black "
