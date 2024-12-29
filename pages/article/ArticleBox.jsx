@@ -50,7 +50,7 @@ function ArticleBox() {
           </div>
           <div
             dir="rtl"
-            className="flex items-center  border-r border-dashed py-2 px-2 border-black h-full w-8/12 text-sm text-center animate__animated animate__fadeIn"
+            className="flex items-center  border-r border-l border-dashed py-2 px-2 border-black h-full w-8/12 text-sm text-center animate__animated animate__fadeIn"
           >
             <span>{article.d_header} ...</span>
           </div>
