@@ -28,7 +28,7 @@ function Index() {
           href={"/booking"}
           className="bg-accent   text-black rounded-l-xl nav-show py-2 px-2 font-bold border-2 border-first hover:scale-110 focus:scale-110 transition"
         >
-         <p  className="animate__animated animate__fadeIn custom-animation animate__infinite">نوبت؟</p>
+         <p  className="text-first animate__animated animate__fadeIn custom-animation animate__infinite">نوبت؟</p>
         </Link>
         <button
           className="bg-first text-main_text py-2 px-4 rounded-r-xl nav-show border-2 border-accent hover:scale-110 focus:scale-110 transition"
