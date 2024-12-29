@@ -14,7 +14,7 @@ function Section_two({ data }) {
         <div className=" w-full relative flex flex-col items-start animate__animated animate__backInRight">
           <div className="w-[130px]">
             <Image
-              className="absolute right-0"
+              className="absolute right-0 opacity-90"
               src={"/Learning-Shapes/Rectangle-" + 3 + ".svg"}
               width={145}
               height={200}
@@ -31,7 +31,7 @@ function Section_two({ data }) {
             })}
           </div>
         </div>
-        <div className="w-64 h-52 bg-first rounded-3xl relative mt-4 animate__animated animate__backInLeft">
+        <div className="w-64 h-52 bg-first opacity-90 rounded-3xl relative mt-4 animate__animated animate__backInLeft">
           <Image className=" rounded-3xl absolute -right-3 -top-3" src={"/learning-face.jpg"} width={200} height={150}/>
 
         </div>
