@@ -27,7 +27,6 @@ function Boxes() {
       <Section_six data={Data[5]}/>
       <Section_seven data={Data[6]}/>
       <Section_eight data={Data[7]}/>
-
     </div>
   );
 }

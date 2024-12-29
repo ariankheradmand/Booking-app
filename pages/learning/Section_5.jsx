@@ -2,6 +2,9 @@ import Image from 'next/image'
 import React from 'react'
 
 function Section_two({data}) {
+  if (!data) {
+    return null; // Don't render the section if data is missing
+  }
   return (
     <div dir='rtl' className='flex items-center justify-center w-full text-white mt-9'>
     <div className=' w-11/12 relative flex flex-col items-start'>

@@ -2,6 +2,9 @@ import Image from "next/image";
 import React from "react";
 
 function Section_two({ data }) {
+  if (!data) {
+    return null; // Don't render the section if data is missing
+  }
   return (
     <div
       dir="rtl"
