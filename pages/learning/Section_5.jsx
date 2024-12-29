@@ -1,16 +1,25 @@
 import Image from "next/image";
 import React from "react";
+import { useInView } from 'react-intersection-observer';
 
 function Section_two({ data }) {
+  const [ref, inView] = useInView({
+    triggerOnce: true, 
+    threshold: 0.2,   
+  });
+
   if (!data) {
-    return null; // Don't render the section if data is missing
+    return null; 
   }
   return (
     <div
+       ref={ref}
       dir="rtl"
-      className="flex items-center justify-center w-full text-white mt-9"
+      className={`flex items-center justify-center w-full text-white overflow-hidden pb-14 ${
+        inView ? 'animate__animated animate__backInRight' : 'opacity-0'
+      }`}
     >
-      <div className=" w-11/12 relative flex flex-col items-start">
+      <div className=" w-11/12 relative flex flex-col items-start animate__animated animate__backInRight">
         <div className="w-[285px]">
           <Image
             className="absolute right-0 opacity-90"
