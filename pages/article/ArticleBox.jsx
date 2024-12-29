@@ -5,36 +5,7 @@ import 'animate.css';
 
 const filterd = ArticleData.length >= 2 ? ArticleData.slice(0, 2) : ArticleData;
 
-const getRandomColor = (colors) => {
-  return colors[Math.floor(Math.random() * colors.length)];
-};
 
-const formatText = (text, wordLimit, colors = ["#0D6986"]) => {
-  const words = text.split(" ");
-  const truncatedText = 
-    words.length > wordLimit 
-      ? words.slice(0, wordLimit).join(" ") + "..." 
-      : text;
-
-  return truncatedText.split("").map((char, index) => {
-    if ((/[0-9]/.test(char) && char !== '.') || char === '•') {
-      return <span key={index} style={{color: getRandomColor(colors)}}>{ char}</span>;
-    } else if (char === '.') {
-      return <span key={index} style={{color: getRandomColor(colors)}}>{char}</span>;
-    }
-    return char;
-  }).map((node, index) => {
-    if (typeof node === 'string') {
-      return node.split("\n").map((line, i) => (
-        <React.Fragment key={i}>
-          {line}
-          {i < node.split("\n").length - 1 ? <br /> : null}
-        </React.Fragment>
-      ));
-    }
-    return node;
-  });
-};
 
 function ArticleBox() {
   const [articles, setArticles] = useState(filterd);
@@ -55,10 +26,12 @@ function ArticleBox() {
   const openModal = (article) => {
     setModalContent({
       name: article.name,
-      details: article.details,
+      d_header: article.d_header,
+      d_contents: article.d_contents
     });
     setModalVisible(true);
   };
+  console.log(ArticleData.d_contents)
 
   const closeModal = () => {
     setModalVisible(false);
@@ -76,9 +49,9 @@ function ArticleBox() {
           </div>
           <div
             dir="rtl"
-            className="border-l border-r py-2 px-2 border-black h-full w-8/12 text-sm text-center animate__animated animate__fadeIn"
+            className="flex items-center border-l border-r py-2 px-2 border-black h-full w-8/12 text-sm text-center animate__animated animate__fadeIn"
           >
-            {formatText(article.details, 20, ["#0D6986"])}
+            <span>{article.d_header} ...</span>
           </div>
           <button
             onClick={() => openModal(article)}
@@ -99,14 +72,21 @@ function ArticleBox() {
 
       {/* Modal */}
       {modalVisible && (
-        <div dir="rtl" className="modal show-modal pt-20 ">
+        <div dir="rtl" className="modal show-modal pt-20 animate__animated animate__fadeIn" onClick={closeModal}>
           <div className="flex flex-col modal-content bg-accent rounded-lg">
             <div className="flex items-center justify-between border-b-2 border-first border-dashed mb-2">
               <h3 className="text-lg font-bold text-first">{modalContent.name}</h3>
-              <span className="close text-xl " onClick={closeModal}>×</span>
+              <span className="close text-xl" onClick={closeModal}>
+                ×
+              </span>
             </div>
             <div>
-              <p className="animate__animated animate__fadeIn">{formatText(modalContent.details, undefined, ['#0D6986'])}</p>
+              <p className="animate__animated animate__fadeIn">
+               {modalContent.d_contents.map((data ,index) => (
+                 <p className="pt-4 border-b border-first border-dotted" key={index}>{data}</p>
+ 
+               ))}
+              </p>
             </div>
           </div>
         </div>
